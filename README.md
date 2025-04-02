@@ -1,4 +1,4 @@
-# Product Visualization - Dysafe Vacuumbat 2000
+# Product Visualization - Dysafe Vacuumbat 3000
 
 A Three.js project built with Vite for showcasing the Dysafe Vacuumbat 3000 as part of a class assignment.
 

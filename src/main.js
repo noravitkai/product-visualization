@@ -10,17 +10,17 @@ scene.background = new THREE.Color(0xe0e0e0); // Background color
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
+  75, // Field of view
+  window.innerWidth / window.innerHeight, // Aspect ratio
+  0.1, // Near clipping plane
+  1000 // Far clipping plane
 );
 camera.position.set(0, 2, 3);
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
+const renderer = new THREE.WebGLRenderer({ antialias: true }); // Enable smooth edges
+renderer.setSize(window.innerWidth, window.innerHeight); // Fit to window size
+renderer.shadowMap.enabled = true; // Turn on shadows
 document.body.appendChild(renderer.domElement);
 
 // Stats
@@ -52,16 +52,17 @@ spotlight2.castShadow = true;
 scene.add(spotlight2);
 
 // Platform for the model
-const planeGeometry = new THREE.PlaneGeometry(10, 10);
+const planeGeometry = new THREE.PlaneGeometry(10, 10); // Shape
 const planeMaterial = new THREE.MeshStandardMaterial({
+  // Material
   color: 0xaaaaaa,
   metalness: 0.5,
   roughness: 0.3,
 });
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = -Math.PI / 2;
-plane.position.y = -0.5;
-plane.receiveShadow = true;
+const plane = new THREE.Mesh(planeGeometry, planeMaterial); // Combine shape & material
+plane.rotation.x = -Math.PI / 2; // Rotate to horizontal
+plane.position.y = -0.5; // Move slightly down
+plane.receiveShadow = true; // Allow shadows to be cast on it
 scene.add(plane);
 
 // Loading the model
@@ -83,6 +84,7 @@ loader.load("/vacuumbat.glb", (gltf) => {
   model.position.set(-6, -1.5, -2);
 
   model.traverse((child) => {
+    // Iterates through all children of the model
     if (child.isMesh) {
       child.castShadow = true;
       child.receiveShadow = true;
@@ -103,12 +105,12 @@ loader.load("/vacuumbat.glb", (gltf) => {
   scene.add(model);
 
   // Setting up rotation around the model
-  const box = new THREE.Box3().setFromObject(model);
-  const center = new THREE.Vector3();
+  const box = new THREE.Box3().setFromObject(model); // Calculate boundaries around the model
+  const center = new THREE.Vector3(); // Find the center of the model
   box.getCenter(center);
 
   function animate() {
-    requestAnimationFrame(animate);
+    requestAnimationFrame(animate); // Animation to move around the model
 
     if (modelControls.autoRotate) {
       modelControls.rotationAngle += modelControls.rotationSpeed;
@@ -164,9 +166,9 @@ Object.keys(parts).forEach((part) => {
 visibilityFolder.open();
 
 // Setting up controls to manipulate the camera and model interaction
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.1;
+const controls = new OrbitControls(camera, renderer.domElement); // Connects the camera to mouse controls
+controls.enableDamping = true; // Smooth movement
+controls.dampingFactor = 0.1; // Smooth movement
 controls.enableZoom = true;
 controls.maxPolarAngle = Math.PI;
 controls.minPolarAngle = 0;

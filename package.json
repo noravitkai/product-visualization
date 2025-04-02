@@ -1,11 +1,11 @@
 {
-  "name": "three-js-vite-boilerplate",
+  "name": "dysafe-vacuumbat-3000",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "three-vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "deploy": "gh-pages -d ./dist"
   },
